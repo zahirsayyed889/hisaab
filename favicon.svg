@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00FFA8"/>
+      <stop offset="50%" stop-color="#00E5A0"/>
+      <stop offset="100%" stop-color="#00A86B"/>
+    </linearGradient>
+    <linearGradient id="innerShine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00E5A0" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background Squircle with Glow -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#primaryGrad)" filter="url(#glow)"/>
+  
+  <!-- Subtle Highlight on Top Half -->
+  <rect x="8" y="8" width="112" height="56" rx="28" fill="url(#innerShine)"/>
+  
+  <!-- Sleek ₹ Rupee Symbol -->
+  <g fill="#0F0F14" transform="translate(64, 66)">
+    <!-- Top Horizontal Bar -->
+    <rect x="-24" y="-36" width="48" height="7" rx="3.5"/>
+    <!-- Second Horizontal Bar -->
+    <rect x="-24" y="-22" width="48" height="7" rx="3.5"/>
+    <!-- Upper Stem & Arc -->
+    <path d="M-10 -36 h18 c9 0 16 6.5 16 15 c0 8.5 -7 15 -16 15 h-18 v-7 h18 c5 0 9 -3.5 9 -8 c0 -4.5 -4 -8 -9 -8 h-18 z"/>
+    <!-- Diagonal Leg -->
+    <path d="M-3 -6 l23 38 h-9.5 l-20 -34 z"/>
+    <!-- Left Vertical Stem Base -->
+    <rect x="-10" y="-36" width="7" height="68" rx="3.5"/>
+  </g>
+</svg>

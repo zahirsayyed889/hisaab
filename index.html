@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="Hisaab - Apne ghar ka hisaab rakho. Family expense tracker app to manage daily kharchas easily. Track doodh, sabzi, ration and more!">
+  <meta name="theme-color" content="#0F0F14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Hisaab">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-TileColor" content="#0F0F14">
+
+  <title>Hisaab - Family Kharcha Tracker 📒</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="shortcut icon" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+
+  <!-- QR Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="app-header" id="app-header">
+      <div class="app-header__title">
+        <img src="favicon.svg" alt="Hisaab" class="app-header__logo" width="30" height="30">
+        <span>Hisaab</span>
+      </div>
+      <div class="app-header__actions">
+        <button class="icon-btn" id="btn-search" aria-label="Search">
+          <svg class="icon-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Container -->
+    <main class="page-content" id="page-container">
+      <!-- Pages rendered here by router -->
+    </main>
+
+    <!-- FAB -->
+    <button class="fab" id="fab-add" aria-label="Kharcha add karo">
+      <svg class="fab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    </button>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="bottom-nav__item bottom-nav__item--active" data-route="/">
+        <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span class="bottom-nav__label">Home</span>
+      </button>
+      <button class="bottom-nav__item" data-route="/analytics">
+        <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        <span class="bottom-nav__label">Reports</span>
+      </button>
+      <button class="bottom-nav__item" data-route="/history">
+        <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span class="bottom-nav__label">History</span>
+      </button>
+      <button class="bottom-nav__item" data-route="/settings">
+        <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="bottom-nav__label">Settings</span>
+      </button>
+    </nav>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal" id="add-modal">
+      <div class="modal__handle"></div>
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-title">Kharcha Add Karo ✍️</h2>
+        <button class="modal__close" id="modal-close" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal__body">
+        <form id="expense-form">
+          <input type="hidden" id="expense-id" value="">
+
+          <!-- Amount -->
+          <div class="form-group">
+            <label class="form-label" for="expense-amount">Kitne ka? (₹)</label>
+            <input type="number" id="expense-amount" class="form-input form-input--large" placeholder="₹ 0" inputmode="decimal" step="0.01" required autocomplete="off">
+          </div>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label class="form-label" for="expense-name">Kya liya? (Item naam)</label>
+            <div style="display:flex;gap:var(--space-sm);align-items:center;">
+              <input type="text" id="expense-name" class="form-input" placeholder="Doodh, Sabzi, Atta..." required autocomplete="off" style="flex:1;">
+              <button type="button" class="voice-btn" id="btn-voice" aria-label="Voice input" title="Bol ke likho">
+                <svg class="voice-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </button>
+            </div>
+            <div class="suggestions" id="name-suggestions" style="display:none;"></div>
+          </div>
+
+          <!-- Category -->
+          <div class="form-group" id="category-group">
+            <label class="form-label">Category (optional)</label>
+            <div class="chips-container" id="category-chips">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Profile / Added By -->
+          <div class="form-group">
+            <label class="form-label">Kisne add kiya?</label>
+            <div class="profile-picker" id="modal-profile-picker">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Note -->
+          <div class="form-group">
+            <label class="form-label" for="expense-note">Note (optional)</label>
+            <input type="text" id="expense-note" class="form-input" placeholder="Koi note likho..." autocomplete="off">
+          </div>
+
+          <!-- Date & Time -->
+          <div class="form-group" style="display:flex; gap: var(--space-sm);">
+            <div style="flex:1;">
+              <label class="form-label" for="expense-date">Date</label>
+              <input type="date" id="expense-date" class="form-input">
+            </div>
+            <div style="flex:1;">
+              <label class="form-label" for="expense-time">Time</label>
+              <input type="time" id="expense-time" class="form-input">
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn--primary btn--full" id="btn-save-expense">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span id="btn-save-text">Save Karo ✅</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirm Dialog -->
+    <div class="modal-backdrop" id="confirm-backdrop"></div>
+    <div class="confirm-dialog" id="confirm-dialog">
+      <div class="confirm-dialog__card">
+        <div class="confirm-dialog__emoji" id="confirm-emoji">🗑️</div>
+        <h3 class="confirm-dialog__title" id="confirm-title">Delete karna hai?</h3>
+        <p class="confirm-dialog__message" id="confirm-message">Ye kharcha permanently delete ho jayega.</p>
+        <div class="confirm-dialog__actions">
+          <button class="btn btn--secondary" id="confirm-cancel">Nahi</button>
+          <button class="btn btn--danger" id="confirm-ok">Haan, Delete Karo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/components/toast.js"></script>
+  <script src="js/components/empty-state.js"></script>
+  <script src="js/components/expense-card.js"></script>
+  <script src="js/components/category-picker.js"></script>
+  <script src="js/components/profile-picker.js"></script>
+  <script src="js/components/add-modal.js"></script>
+  <script src="js/components/chart.js"></script>
+  <script src="js/components/voice-input.js"></script>
+  <script src="js/components/notification.js"></script>
+  <script src="js/components/qr-sync.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/analytics.js"></script>
+  <script src="js/pages/history.js"></script>
+  <script src="js/pages/search.js"></script>
+  <script src="js/pages/settings.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Register Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.error('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

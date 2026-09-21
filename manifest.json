@@ -1,0 +1,36 @@
+{
+  "name": "Hisaab - Family Kharcha Tracker",
+  "short_name": "Hisaab",
+  "description": "Apne ghar ka hisaab rakho. Daily kharche track karo easily.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F14",
+  "theme_color": "#0F0F14",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["finance", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "screenshots": [],
+  "prefer_related_applications": false
+}
